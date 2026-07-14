@@ -1,0 +1,81 @@
+### Test 1 : Ajout d'un etudiant -> attendu 201 Created
+POST http://localhost:8080/etudiants
+Content-Type: application/json
+
+{
+  "matricule": "ET001",
+  "prenom": "Moussa",
+  "nom": "Diallo",
+  "email": "moussa@universite.sn",
+  "dateNaissance": "2003-04-15",
+  "lieuNaissance": "Thies",
+  "nationalite": "Senegalaise"
+}
+
+### Test 2 : Matricule deja existant -> attendu 409 Conflict
+POST http://localhost:8080/etudiants
+Content-Type: application/json
+
+{
+  "matricule": "ET001",
+  "prenom": "Awa",
+  "nom": "Ndiaye",
+  "email": "awa@universite.sn",
+  "dateNaissance": "2002-01-10",
+  "lieuNaissance": "Dakar",
+  "nationalite": "Senegalaise"
+}
+
+### Test 3 : Email deja existant -> attendu 409 Conflict
+POST http://localhost:8080/etudiants
+Content-Type: application/json
+
+{
+  "matricule": "ET002",
+  "prenom": "Awa",
+  "nom": "Ndiaye",
+  "email": "moussa@universite.sn",
+  "dateNaissance": "2002-01-10",
+  "lieuNaissance": "Dakar",
+  "nationalite": "Senegalaise"
+}
+
+### Test 4 : Champ obligatoire manquant (prenom vide) -> attendu 400 Bad Request
+POST http://localhost:8080/etudiants
+Content-Type: application/json
+
+{
+  "matricule": "ET003",
+  "prenom": "",
+  "nom": "Fall",
+  "email": "fall@universite.sn",
+  "dateNaissance": "2001-05-20",
+  "lieuNaissance": "Saint-Louis",
+  "nationalite": "Senegalaise"
+}
+
+### Test 5 : Recherche d'un etudiant inexistant -> attendu 404 Not Found
+GET http://localhost:8080/etudiants/100
+
+### Test 6 : Suppression d'un etudiant existant -> attendu 204 No Content
+DELETE http://localhost:8080/etudiants/1
+
+### Bonus : Liste triee par nom
+GET http://localhost:8080/etudiants?tri=nom
+
+### Bonus : Recherche par matricule
+GET http://localhost:8080/etudiants/matricule/ET001
+
+### Modification d'un etudiant existant -> attendu 200 OK
+PUT http://localhost:8080/etudiants/1
+Content-Type: application/json
+
+{
+  "matricule": "ET001",
+  "prenom": "Moussa",
+  "nom": "Diallo",
+  "email": "moussa.diallo@universite.sn",
+  "dateNaissance": "2003-04-15",
+  "lieuNaissance": "Thies",
+  "nationalite": "Senegalaise"
+}
