@@ -29,6 +29,11 @@ public class GlobalExceptionHandler {
         ApiError error = new ApiError(HttpStatus.CONFLICT.value(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
     }
+    @ExceptionHandler(IdentifiantsInvalidesException.class)
+    public ResponseEntity<ApiError> handleIdentifiantsInvalides(IdentifiantsInvalidesException ex) {
+        ApiError error = new ApiError(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
 
     @ExceptionHandler(EtudiantNotFoundException.class)
     public ResponseEntity<ApiError> handleEtudiantNotFound(EtudiantNotFoundException ex) {
